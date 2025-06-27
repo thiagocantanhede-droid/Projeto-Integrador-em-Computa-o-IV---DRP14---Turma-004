@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Registrar Saída</h1>
+
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    <div>
+        <label for="select-multtiple">Item</label>
+    </div>
+    <div class="selectdiv">
+
+        <select name="item">
+            <option selected> Selecione </option>
+            {% for item in items %}
+            <option value="{{item.pk}}">
+                {{item}} | Tam : {{item.tamanho}} | {{item.armario}} | Pat: {{item.patrimonio}}
+            </option>
+            {% endfor %}
+        </select>
+
+        <div>
+            <label for="select-multtiple">Quantidade</label>
+        </div>
+        <select name="quantidade">
+            <option selected> Selecione </option>
+            {% for n in quantidade %}
+            <option value="{{n}}">
+                {{n}}
+            </option>
+            {% endfor %}
+        </select>
+        
+        <button class="br-button secondary large mr-3" type="submit">Confirmar
+        </button>
+
+    </div>
+
+</form>
+
+
+{% endblock content %}

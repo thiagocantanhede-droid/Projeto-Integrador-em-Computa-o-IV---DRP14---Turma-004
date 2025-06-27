@@ -1,0 +1,17 @@
+<label>Tamanho
+
+
+    <select name="item">
+
+
+        <option selected>Selecione</option>
+        {% for tamanho in tamanhos %}
+
+        <option value="{{tamanho.pk}}">
+            {{tamanho}}
+        </option>
+
+        {% endfor %}
+
+    </select>
+</label>

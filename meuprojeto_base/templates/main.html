@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="../static/images/favicon_io/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.5/dist/htmx.min.js"
+        integrity="sha384-t4DxZSyQK+0Uv4jzy5B0QyHyWQD2GFURUmxKMBVww9+e2EJ0ei/vCvv7+79z0fkr"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            padding: 1rem;
+        }
+        .br-button {
+            margin-top: 10px;
+        }
+    </style>
+    <style>
+        .selectdiv {
+            position: relative;
+            /*Don't really need this just for demo styling*/
+
+            float: left;
+            min-width: 300px;
+        }
+
+        /* IE11 hide native button (thanks Matt!) */
+        select::-ms-expand {
+            display: none;
+        }
+
+        .selectdiv:after {
+            content: '';
+            font: 17px "Consolas", monospace;
+            color: #333;
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+            transform: rotate(90deg);
+            right: 5px;
+            /*Adjust for position however you want*/
+
+            top: 18px;
+            padding: 0 0 2px;
+            border-bottom: 1px solid #999;
+            /*left line */
+
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .selectdiv select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* Add some styling */
+
+            display: block;
+            width: 100%;
+            max-width: 700px;
+            height: 50px;
+            float: right;
+            font-weight: bold;
+            margin: 5px 0px;
+            padding: 0px 35px;
+            line-height: 1.75;
+            color: #333;
+            background-color: #ffffff;
+            background-image: none;
+            border: 1px solid #cccccc;
+            -ms-word-break: normal;
+            word-break: normal;
+        }
+    </style>
+
+
+    <title>Gestão DIPAM-SP</title>
+</head>
+
+<body style="overflow-y: auto;">
+
+
+
+    {% include 'header.html' %}
+    <main class="d-flex flex-fill mb-5" id="main">
+        <div class="container-lg d-flex">
+            <div class="row">
+                <div class="col mb-5">
+
+
+
+                    {% include 'breadcrumb.html' %}
+                    <div class="main-content pl-sm-3 mt-4" id="main-navigation">
+
+                        {% block content %}
+
+                        {% endblock content %}
+
+
+                        <script src="../../../core-init.js"></script>
+
+                        <link rel="stylesheet"
+                            href="https://docs-ds.estaleiro.serpro.gov.br/govbr-ds-core/dist/core.css">
+                        <link rel="stylesheet" href="../static/css/rawline.css">
+                        <link rel="stylesheet"
+                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+                        <script src="https://docs-ds.estaleiro.serpro.gov.br/govbr-ds-core/dist/core-init.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include 'footer.html' %}
+
+
+
+</body>
+
+</html>
