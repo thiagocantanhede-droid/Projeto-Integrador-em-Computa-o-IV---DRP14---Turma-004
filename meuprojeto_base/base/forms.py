@@ -11,5 +11,5 @@ class MyUserCreationForm(UserCreationForm):
 class ItemForm(ModelForm):
     class Meta:
         model = Item
-        fields = ['name', 'quantidade', 'armario', 'image', 'cautela', 'patrimônio']
+        fields = ['name', 'quantidade', 'armario', 'image', 'patrimônio']
 

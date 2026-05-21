@@ -1,0 +1,557 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .exemplo {
+        max-width: 500px;
+    }
+</style>
+<div class="exemplo">
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <span class="br-avatar medium mr-3" style="margin: 0%;" title="celular"><span class="content"><img
+                        src="{% static '/images/smartphone_1.svg' %}" alt="Avatar" /></span></span>
+            <div class="col" style="margin-top: 35px;"><span>{{celular.name}}</span></div>
+        </div>
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">Modelo: {{celular.modelo}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">IMEI: {{celular.IMEI}}</div>
+
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">ICCID: {{celular.ICCID}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">Armario: {{celular.armario}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            {% if celular.patrimônio != None %}
+            <div class="col">Patrimônio: {{celular.patrimônio}}</div>
+            {% else %}
+            <div class="col">Patrimônio: sem patrimônio</div>
+            {% endif %}
+
+
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">Documento: {{celular.documento}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">Cautela: {{celular.cautela.username}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-celular">
+        <div class="row align-celulars-center">
+            <div class="col">Número: {{celular.numero}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+
+</div>
+
+<br>
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="selectdiv">
+
+        <select name="cautela">
+            <option selected> Alterar Cautela </option>
+            {% for usuario in usuarios %}
+            <option value="{{usuario.id}}">
+                {{usuario.username}}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="br-scrim-util foco" id="scrimutilexamplemodal" data-scrim="true">
+        <div class="br-modal" aria-labelledby="titulomodalexemplo">
+            <div class="br-modal-header" id="titulomodalexemplo">Confirmar</div>
+            <div class="br-modal-body">
+                <p>Deseja alterar a cautela?</p>
+            </div>
+            <div class="br-modal-footer justify-content-center">
+                <button class="br-button primary" type="button" data-dismiss="true" style="margin: 0%;">Cancelar
+                </button>
+                <br><br>
+                <input class="br-button primary" type="submit" value="Confirmar">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="scrimutilexamplemodal">
+        <button class="br-button primary" type="button" id="buttonactivatemodal">Confirmar
+        </button>
+    </div>
+</form>
+
+
+<style>
+    .br-celular {
+        background: var(--background);
+        --celular-padding-x: var(--spacing-scale-2x);
+        --celular-padding-y: var(--spacing-scale-base);
+        --celular-padding: var(--celular-padding-y) var(--celular-padding-x);
+        --focus-offset: calc(var(--focus-width) * -1);
+        border: 0;
+        color: var(--color);
+        display: block;
+        font-weight: var(--font-weight);
+        padding: var(--celular-padding);
+        text-align: left;
+        width: 100%;
+    }
+
+    .br-celular .row {
+        margin-left: calc(-1 * var(--spacing-scale-base));
+        margin-right: calc(-1 * var(--spacing-scale-base));
+    }
+
+    .br-celular .row .col,
+    .br-celular .row [class*=col-] {
+        padding-left: var(--spacing-scale-base);
+        padding-right: var(--spacing-scale-base);
+    }
+
+    .br-celular::after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+
+    .br-celular[data-toggle] {
+        cursor: pointer;
+    }
+
+    .br-celular[data-toggle=selection]:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--hover)), rgba(var(--color-rgb), var(--hover)));
+    }
+
+    .br-celular>.br-checkbox:not(.hidden-label),
+    .br-celular>.br-radio:not(.hidden-label) {
+        margin-bottom: calc(var(--celular-padding-y) * -1);
+        margin-left: calc(var(--celular-padding-x) * -1);
+        margin-right: calc(var(--celular-padding-x) * -1);
+        margin-top: calc(var(--celular-padding-y) * -1);
+    }
+
+    .br-celular>.br-checkbox:not(.hidden-label) input+label,
+    .br-celular>.br-radio:not(.hidden-label) input+label {
+        padding-bottom: var(--celular-padding-y);
+        padding-top: var(--celular-padding-y);
+        top: 1px;
+        width: 100%;
+    }
+
+    .br-celular>.br-checkbox:not(.hidden-label) input+label::before,
+    .br-celular>.br-radio:not(.hidden-label) input+label::before {
+        left: var(--celular-padding-x);
+        top: calc(var(--celular-padding-y) - 1px);
+    }
+
+    .br-celular>.br-checkbox:not(.hidden-label) input+label:empty,
+    .br-celular>.br-radio:not(.hidden-label) input+label:empty {
+        left: 0;
+        top: 1px;
+    }
+
+    .br-celular>.br-checkbox:not(.hidden-label) input:hover:not(:disabled)+label::before,
+    .br-celular>.br-radio:not(.hidden-label) input:hover:not(:disabled)+label::before {
+        background-image: none;
+    }
+
+    .br-celular>.br-checkbox input:not(:indeterminate)+label {
+        min-height: calc(var(--checkbox-size) + var(--celular-padding-y) * 2);
+    }
+
+    .br-celular>.br-checkbox input:not(:indeterminate)+label:not(:empty) {
+        padding-left: calc(var(--checkbox-padding) + var(--checkbox-size) + var(--celular-padding-x));
+    }
+
+    .br-celular>.br-checkbox input:not(:indeterminate)+label::after {
+        left: calc(var(--celular-padding-x) + 8px);
+        top: calc(var(--celular-padding-y) + 4px);
+    }
+
+    .br-celular>.br-checkbox input:not(:indeterminate)+label:empty {
+        min-height: var(--checkbox-size);
+    }
+
+    .br-celular>.br-checkbox input:not(:indeterminate)+label:empty::after {
+        left: 8px;
+        top: 4px;
+    }
+
+    .br-celular .br-radio input+label {
+        min-height: calc(var(--radio-size) + var(--celular-padding-y) * 2);
+        padding-left: calc(var(--spacing-scale-base) + var(--radio-size) + var(--celular-padding-x));
+    }
+
+    .br-celular .br-radio input+label::after {
+        left: calc(var(--celular-padding-x) + var(--radio-bullet-position));
+        top: calc(var(--celular-padding-y) + var(--radio-bullet-position) - 1px);
+    }
+
+    .br-celular .br-radio input+label:empty {
+        min-height: var(--radio-size);
+    }
+
+    .br-celular .br-radio input+label:empty::after {
+        left: var(--radio-bullet-position);
+        top: var(--radio-bullet-position);
+    }
+
+    .br-celular.primary-lighten-01 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.primary-lighten-02 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.primary-default {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.primary-darken-01 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.primary-darken-02 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.secondary-06 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.secondary-07 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.secondary-08 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.secondary-09 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.highlight {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.support-01 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.support-03 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.support-04 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.support-07 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.support-08 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.selected {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+        background-color: var(--selected);
+    }
+
+    .br-celular.active {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+        background-color: var(--active);
+        color: var(--color);
+    }
+
+    .br-celular.inverted,
+    .br-celular.dark-mode {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-celular.inverted.active,
+    .br-celular.dark-mode.active {
+        --color: var(--color-light);
+        --color-rgb: var(--color-light-rgb);
+        --text-color: var(--color-light);
+        --interactive: var(--interactive-light);
+        --interactive-rgb: var(--active-rgb);
+        --visited: var(--visited-light);
+        --hover: var(--hover-light);
+        --pressed: var(--pressed-light);
+        --focus-color: var(--focus-color-light);
+        --focus: var(--focus-color-light);
+        background-color: var(--background-light);
+        color: var(--active);
+    }
+
+    .br-celular[data-toggle]:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--hover)), rgba(var(--color-rgb), var(--hover)));
+    }
+
+    .br-celular[data-toggle] .content i {
+        color: var(--interactive);
+    }
+
+    .br-celular .content {
+        align-celulars: center;
+        display: flex;
+    }
+
+    .br-celular [class*=fa-] {
+        height: 16px;
+        width: 14px !important;
+    }
+
+    .br-celular .toogle-icon-interactive {
+        color: var(--interactive);
+    }
+
+    a.br-celular {
+        color: var(--interactive);
+    }
+
+    a.br-celular:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--interactive-rgb), var(--hover)), rgba(var(--interactive-rgb), var(--hover)));
+    }
+
+    a.br-celular:not(:disabled):active {
+        background-image: linear-gradient(rgba(var(--interactive-rgb), var(--pressed)), rgba(var(--interactive-rgb), var(--pressed)));
+    }
+
+    button.br-celular {
+        background-color: transparent;
+        color: var(--color);
+    }
+
+    button.br-celular:focus {
+        outline: none;
+    }
+
+    button.br-celular.focus-visible,
+    button.br-celular:focus-visible {
+        outline-color: var(--focus);
+        outline-offset: var(--focus-offset);
+        outline-style: var(--focus-style);
+        outline-width: var(--focus-width);
+    }
+
+    button.br-celular:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--hover)), rgba(var(--color-rgb), var(--hover)));
+    }
+
+    button.br-celular:not(:disabled):active {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--pressed)), rgba(var(--color-rgb), var(--pressed)));
+    }
+
+    /*# sourceMappingURL=celular.css.map*/
+</style>
+
+{% endblock content %}

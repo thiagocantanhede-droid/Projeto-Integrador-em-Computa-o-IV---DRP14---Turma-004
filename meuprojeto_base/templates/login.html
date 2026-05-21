@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
 <h1>Entrar</h1>
@@ -18,11 +18,21 @@
                     class="fas fa-eye" aria-hidden="true"></i>
             </button>
         </div>
-
+        <br>
         <button class="br-button secondary large mr-3" type="submit">Confirmar
         </button>
 
     </fieldset>
 
 </form>
+
+{% if messages %}
+{% for message in messages %}
+<br>
+<div>
+    <strong style="color: red;">{{message}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+
 {% endblock content %}

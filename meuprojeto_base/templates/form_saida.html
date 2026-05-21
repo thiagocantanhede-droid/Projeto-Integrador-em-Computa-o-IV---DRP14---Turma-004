@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
 
@@ -17,7 +17,7 @@
             <option selected> Selecione </option>
             {% for item in items %}
             <option value="{{item.pk}}">
-                {{item}} | Tam : {{item.tamanho}} | {{item.armario}} | Pat: {{item.patrimonio}}
+                {{item}} | Tam : {{item.tamanho}} | {{item.armario}} | Pat: {{item.patrimônio}}
             </option>
             {% endfor %}
         </select>
@@ -33,11 +33,34 @@
             </option>
             {% endfor %}
         </select>
-        
-        <button class="br-button secondary large mr-3" type="submit">Confirmar
-        </button>
+        <div>
+            <label for="select-multtiple">Cautela</label>
+        </div>
+        <select name="cautela">
+            <option selected> Selecione </option>
+            {% for usuario in usuarios %}
+            <option value="{{usuario.id}}">
+                {{usuario.username}}
+            </option>
+            {% endfor %}
+        </select>
+
 
     </div>
+    <br>
+    <button class="br-button secondary large mr-3" type="submit">Confirmar
+    </button>
+
+    {% if messages %}
+    {% for message in messages %}
+    <br>
+    <div>
+        <strong style="color: red;">{{message}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+
 
 </form>
 

@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<h1>Cadastro</h1>
+
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    <div>
+        <label for="select-multtiple">Item</label>
+    </div>
+    <div class="selectdiv">
+
+        <select name="item">
+            <option selected> Selecione </option>
+            {% for item in items %}
+            <option value="{{item}}">
+                {{item}}
+            </option>
+            {% endfor %}
+        </select>
+
+        <div>
+            <label for="select-multtiple">Quantidade</label>
+        </div>
+        <select name="quantidade">
+            <option selected> Selecione </option>
+            {% for n in quantidade %}
+            <option value="{{n}}">
+                {{n}}
+            </option>
+            {% endfor %}
+        </select>
+        <div>
+            <label for="select-multtiple">Patrimônio</label>
+        </div>
+
+        <div class="br-input medium">
+            <input name="patrimônio" style="width: fit-content;" id="input-medium" type="text" placeholder="Digite..." />
+        </div>
+
+
+        <div>
+            <label for="select-multtiple">Armário</label>
+        </div>
+        <select name="armario">
+            <option selected> Selecione </option>
+            {% for armario in armarios %}
+            <option value="{{armario.pk}}">
+                {{armario}}
+            </option>
+            {% endfor %}
+        </select>
+
+        <div>
+            <label for="select-multtiple">Tamanho</label>
+        </div>
+        <select name="tamanho">
+            <option selected> Selecione </option>
+            {% for tamanho in tamanhos %}
+            <option value="{{tamanho}}">
+                {{tamanho}}
+            </option>
+            {% endfor %}
+        </select>
+
+
+
+    </div>
+    <br>
+    <button class="br-button secondary large mr-3" type="submit">Confirmar
+    </button>
+
+    {% if messages %}
+    {% for message in messages %}
+    <br>
+    <div>
+        <strong style="color: red;">{{message}}</strong>
+    </div>
+    {% endfor %}
+    {% endif %}
+
+</form>
+
+
+{% endblock content %}

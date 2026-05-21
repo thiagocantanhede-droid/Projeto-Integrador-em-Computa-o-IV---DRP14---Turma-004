@@ -1,0 +1,588 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="exemplo">
+    <div class="br-item">
+        <div class="row align-items-center">
+            <span class="br-avatar medium mr-3" title="Item"><span class="content"><img
+                        src="{% static '/images/laptop.svg' %}" alt="Avatar" /></span></span>
+            <div class="col"><span>{{item.name}}</span></div>
+        </div>
+    </div><span class="br-divider"></span>
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Modelo: {{item.modelo}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Marca: {{item.marca}}</div>
+
+        </div>
+
+    </div><span class="br-divider"></span>
+    {% if item.acessório_1 != None %}
+    {% if item.acessório_1 != None %}
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Acessório 1: {{item.acessório_1}}</div>
+        </div>
+    </div><span class="br-divider"></span>
+    {% endif %}
+    {% if item.acessório_2 != None %}
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Acessório 2: {{item.acessório_2}}</div>
+        </div>
+    </div><span class="br-divider"></span>
+    {% endif %}
+    {% if item.acessório_3 != None %}
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Acessório 3: {{item.acessório_3}}</div>
+        </div>
+    </div><span class="br-divider"></span>
+    {% endif %}
+    {% if item.acessório_4 != None %}
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Acessório 4: {{item.acessório_4}}</div>
+        </div>
+    </div><span class="br-divider"></span>
+    {% endif %}
+    {% if item.acessório_5 != None %}
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Acessório 5: {{item.acessório_5}}</div>
+        </div>
+    </div><span class="br-divider"></span>
+    {% endif %}
+    {% if item.acessório_6 != None %}
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Acessório 6: {{item.acessório_6}}</div>
+        </div>
+    </div><span class="br-divider"></span>
+    {% endif %}
+    {% else %}
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Sem acessórios</div>
+        </div>
+    </div><span class="br-divider"></span>
+
+
+    {% endif %}
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Armario: {{item.armario}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            {% if item.patrimônio != None %}
+            <div class="col">Patrimônio: {{item.patrimônio}}</div>
+            {% else %}
+            <div class="col">Patrimônio: sem patrimônio</div>
+            {% endif %}
+
+
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Documento: {{item.documento}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Cautela: {{item.cautela.username}}</div>
+        </div>
+
+    </div><span class="br-divider"></span>
+
+</div>
+<br>
+<form action="" method="post">
+    {% csrf_token %}
+
+    <div class="selectdiv">
+
+        <select name="cautela">
+            <option selected> Alterar Cautela </option>
+            {% for usuario in usuarios %}
+            <option value="{{usuario.id}}">
+                {{usuario.username}}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="br-scrim-util foco" id="scrimutilexamplemodal" data-scrim="true">
+        <div class="br-modal" aria-labelledby="titulomodalexemplo">
+            <div class="br-modal-header" id="titulomodalexemplo">Confirmar</div>
+            <div class="br-modal-body">
+                <p>Deseja alterar a cautela?</p>
+            </div>
+            <div class="br-modal-footer justify-content-center">
+                <button class="br-button primary" type="button" data-dismiss="true" style="margin: 0;">Cancelar
+                </button>
+                <br><br>
+                <input class="br-button primary" type="submit" value="Confirmar">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="scrimutilexamplemodal">
+        <button class="br-button primary" type="button" id="buttonactivatemodal">Confirmar
+        </button>
+    </div>
+</form>
+
+
+<style>
+    .br-item {
+        background: var(--background);
+        --item-padding-x: var(--spacing-scale-2x);
+        --item-padding-y: var(--spacing-scale-base);
+        --item-padding: var(--item-padding-y) var(--item-padding-x);
+        --focus-offset: calc(var(--focus-width) * -1);
+        border: 0;
+        color: var(--color);
+        display: block;
+        font-weight: var(--font-weight);
+        padding: var(--item-padding);
+        text-align: left;
+        width: 100%;
+    }
+
+    .br-item .row {
+        margin-left: calc(-1 * var(--spacing-scale-base));
+        margin-right: calc(-1 * var(--spacing-scale-base));
+    }
+
+    .br-item .row .col,
+    .br-item .row [class*=col-] {
+        padding-left: var(--spacing-scale-base);
+        padding-right: var(--spacing-scale-base);
+    }
+
+    .br-item::after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+
+    .br-item[data-toggle] {
+        cursor: pointer;
+    }
+
+    .br-item[data-toggle=selection]:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--hover)), rgba(var(--color-rgb), var(--hover)));
+    }
+
+    .br-item>.br-checkbox:not(.hidden-label),
+    .br-item>.br-radio:not(.hidden-label) {
+        margin-bottom: calc(var(--item-padding-y) * -1);
+        margin-left: calc(var(--item-padding-x) * -1);
+        margin-right: calc(var(--item-padding-x) * -1);
+        margin-top: calc(var(--item-padding-y) * -1);
+    }
+
+    .br-item>.br-checkbox:not(.hidden-label) input+label,
+    .br-item>.br-radio:not(.hidden-label) input+label {
+        padding-bottom: var(--item-padding-y);
+        padding-top: var(--item-padding-y);
+        top: 1px;
+        width: 100%;
+    }
+
+    .br-item>.br-checkbox:not(.hidden-label) input+label::before,
+    .br-item>.br-radio:not(.hidden-label) input+label::before {
+        left: var(--item-padding-x);
+        top: calc(var(--item-padding-y) - 1px);
+    }
+
+    .br-item>.br-checkbox:not(.hidden-label) input+label:empty,
+    .br-item>.br-radio:not(.hidden-label) input+label:empty {
+        left: 0;
+        top: 1px;
+    }
+
+    .br-item>.br-checkbox:not(.hidden-label) input:hover:not(:disabled)+label::before,
+    .br-item>.br-radio:not(.hidden-label) input:hover:not(:disabled)+label::before {
+        background-image: none;
+    }
+
+    .br-item>.br-checkbox input:not(:indeterminate)+label {
+        min-height: calc(var(--checkbox-size) + var(--item-padding-y) * 2);
+    }
+
+    .br-item>.br-checkbox input:not(:indeterminate)+label:not(:empty) {
+        padding-left: calc(var(--checkbox-padding) + var(--checkbox-size) + var(--item-padding-x));
+    }
+
+    .br-item>.br-checkbox input:not(:indeterminate)+label::after {
+        left: calc(var(--item-padding-x) + 8px);
+        top: calc(var(--item-padding-y) + 4px);
+    }
+
+    .br-item>.br-checkbox input:not(:indeterminate)+label:empty {
+        min-height: var(--checkbox-size);
+    }
+
+    .br-item>.br-checkbox input:not(:indeterminate)+label:empty::after {
+        left: 8px;
+        top: 4px;
+    }
+
+    .br-item .br-radio input+label {
+        min-height: calc(var(--radio-size) + var(--item-padding-y) * 2);
+        padding-left: calc(var(--spacing-scale-base) + var(--radio-size) + var(--item-padding-x));
+    }
+
+    .br-item .br-radio input+label::after {
+        left: calc(var(--item-padding-x) + var(--radio-bullet-position));
+        top: calc(var(--item-padding-y) + var(--radio-bullet-position) - 1px);
+    }
+
+    .br-item .br-radio input+label:empty {
+        min-height: var(--radio-size);
+    }
+
+    .br-item .br-radio input+label:empty::after {
+        left: var(--radio-bullet-position);
+        top: var(--radio-bullet-position);
+    }
+
+    .br-item.primary-lighten-01 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.primary-lighten-02 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.primary-default {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.primary-darken-01 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.primary-darken-02 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.secondary-06 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.secondary-07 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.secondary-08 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.secondary-09 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.highlight {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.support-01 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.support-03 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.support-04 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.support-07 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.support-08 {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.selected {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+        background-color: var(--selected);
+    }
+
+    .br-item.active {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+        background-color: var(--active);
+        color: var(--color);
+    }
+
+    .br-item.inverted,
+    .br-item.dark-mode {
+        --color: var(--color-dark);
+        --color-rgb: var(--color-dark-rgb);
+        --text-color: var(--color-dark);
+        --interactive: var(--interactive-dark);
+        --interactive-rgb: var(--interactive-dark-rgb);
+        --visited: var(--visited-dark);
+        --hover: var(--hover-dark);
+        --pressed: var(--pressed-dark);
+        --focus-color: var(--focus-color-dark);
+        --focus: var(--focus-color-dark);
+    }
+
+    .br-item.inverted.active,
+    .br-item.dark-mode.active {
+        --color: var(--color-light);
+        --color-rgb: var(--color-light-rgb);
+        --text-color: var(--color-light);
+        --interactive: var(--interactive-light);
+        --interactive-rgb: var(--active-rgb);
+        --visited: var(--visited-light);
+        --hover: var(--hover-light);
+        --pressed: var(--pressed-light);
+        --focus-color: var(--focus-color-light);
+        --focus: var(--focus-color-light);
+        background-color: var(--background-light);
+        color: var(--active);
+    }
+
+    .br-item[data-toggle]:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--hover)), rgba(var(--color-rgb), var(--hover)));
+    }
+
+    .br-item[data-toggle] .content i {
+        color: var(--interactive);
+    }
+
+    .br-item .content {
+        align-items: center;
+        display: flex;
+    }
+
+    .br-item [class*=fa-] {
+        height: 16px;
+        width: 14px !important;
+    }
+
+    .br-item .toogle-icon-interactive {
+        color: var(--interactive);
+    }
+
+    a.br-item {
+        color: var(--interactive);
+    }
+
+    a.br-item:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--interactive-rgb), var(--hover)), rgba(var(--interactive-rgb), var(--hover)));
+    }
+
+    a.br-item:not(:disabled):active {
+        background-image: linear-gradient(rgba(var(--interactive-rgb), var(--pressed)), rgba(var(--interactive-rgb), var(--pressed)));
+    }
+
+    button.br-item {
+        background-color: transparent;
+        color: var(--color);
+    }
+
+    button.br-item:focus {
+        outline: none;
+    }
+
+    button.br-item.focus-visible,
+    button.br-item:focus-visible {
+        outline-color: var(--focus);
+        outline-offset: var(--focus-offset);
+        outline-style: var(--focus-style);
+        outline-width: var(--focus-width);
+    }
+
+    button.br-item:not(:disabled):hover {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--hover)), rgba(var(--color-rgb), var(--hover)));
+    }
+
+    button.br-item:not(:disabled):active {
+        background-image: linear-gradient(rgba(var(--color-rgb), var(--pressed)), rgba(var(--color-rgb), var(--pressed)));
+    }
+
+    /*# sourceMappingURL=item.css.map*/
+</style>
+
+{% endblock content %}

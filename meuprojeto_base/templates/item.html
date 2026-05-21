@@ -1,7 +1,52 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
+
+{% load static %}
 
 {% block content %}
 
+<div class="exemplo">
+    <div class="br-item">
+        <div class="row align-items-center">
+            <span class="br-avatar medium mr-3" style="margin: 0%;" title="Item"><span class="content"><img
+                        src="{% static '/images/item.png' %}" alt="Avatar" /></span></span>
+            <div class="col" ><span>{{item.name}}</span></div>
+        </div>
+    </div><span class="br-divider"></span>
 
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Armario: {{item.armario}}</div>
+            <div class="col-auto">
+            </div>
+        </div>
+
+    </div><span class="br-divider"></span>
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Tamanho: {{item.tamanho}}</div>
+
+        </div>
+
+    </div><span class="br-divider"></span>
+    <div class="br-item">
+        <div class="row align-items-center">
+            <div class="col">Quantidade: {{item.quantidade}}</div>
+
+        </div>
+
+    </div><span class="br-divider"></span>
+    <div class="br-item">
+        <div class="row align-items-center">
+            {% if item.patrimônio != None %}
+            <div class="col">Patrimônio: {{item.patrimônio}}</div>
+            {% else %}
+            <div class="col">Patrimônio: sem patrimônio</div>
+            {% endif %}
+
+
+        </div>
+
+    </div><span class="br-divider"></span>
+</div>
 
 {% endblock content %}

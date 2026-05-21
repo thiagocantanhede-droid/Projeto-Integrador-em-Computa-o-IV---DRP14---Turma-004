@@ -1,4 +1,4 @@
-{% extends 'main.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
 
@@ -11,7 +11,7 @@
     <div>
         <label for="select-multtiple">Item</label>
     </div>
-    <div class="selectdiv">
+    <div class="center">
 
         <select name="item">
             <option selected> Selecione </option>
@@ -33,13 +33,26 @@
             </option>
             {% endfor %}
         </select>
-        
-        <button class="br-button secondary large mr-3" type="submit">Confirmar
-        </button>
+
 
     </div>
+    <br>
+    <button class="br-button secondary large mr-3" type="submit">Confirmar
+    </button>
+
 
 </form>
 
+{% if messages %}
+{% for message in messages %}
+<br>
+<div>
+    <strong style="color: red;">{{message}}</strong>
+</div>
+{% endfor %}
+{% endif %}
+
+
 
 {% endblock content %}
+
